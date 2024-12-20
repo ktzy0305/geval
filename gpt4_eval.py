@@ -28,7 +28,7 @@ if __name__ == '__main__':
         instance['prompt'] = cur_prompt
         while True:
             try:
-                _response = openai.ChatCompletion.create(
+                _response = openai.chat.completions.create(
                     model=args.model,
                     messages=[{"role": "system", "content": cur_prompt}],
                     temperature=2,
@@ -42,8 +42,8 @@ if __name__ == '__main__':
                 )
                 time.sleep(0.5)
 
-                all_responses = [_response['choices'][i]['message']['content'] for i in
-                                 range(len(_response['choices']))]
+                all_responses = [_response.choices[i].message.content for i in
+                                 range(len(_response.choices))]
                 instance['all_responses'] = all_responses
                 new_json.append(instance)
                 ct += 1
